@@ -22,6 +22,8 @@ export function Board({ board, puzzle, notes, noteHints, noteConflicts, conflict
               isConflict={conflicts.has(key)}
               boxTop={r % 3 === 0}
               boxLeft={c % 3 === 0}
+              boxRight={c === 8}
+              boxBottom={r === 8}
               onClick={() => onSelectCell(r, c)}
             />
           )

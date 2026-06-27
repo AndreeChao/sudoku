@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
   aspect-ratio: 1;
   border-top: 1px solid #bbb;
   border-left: 1px solid #bbb;
@@ -24,6 +23,8 @@
 .cell.conflict { background: #ffcdd2; }
 .cell.box-top { border-top: 2px solid #333; }
 .cell.box-left { border-left: 2px solid #333; }
+.cell.box-right { border-right: 2px solid #333; }
+.cell.box-bottom { border-bottom: 2px solid #333; }
 
 .cell.notes-cell {
   display: grid;

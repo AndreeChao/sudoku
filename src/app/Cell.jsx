@@ -1,12 +1,14 @@
 import './Cell.css'
 
-export function Cell({ value, isGiven, notes, noteHints, noteConflicts, isSelected, isSameNumber, isConflict, boxTop, boxLeft, onClick }) {
+export function Cell({ value, isGiven, notes, noteHints, noteConflicts, isSelected, isSameNumber, isConflict, boxTop, boxLeft, boxRight, boxBottom, onClick }) {
   const classNames = [
     'cell',
     isGiven ? 'given' : '',
     isSelected ? 'selected' : isConflict ? 'conflict' : isSameNumber ? 'same-number' : '',
     boxTop ? 'box-top' : '',
     boxLeft ? 'box-left' : '',
+    boxRight ? 'box-right' : '',
+    boxBottom ? 'box-bottom' : '',
   ].filter(Boolean).join(' ')
 
   if (value !== 0) {

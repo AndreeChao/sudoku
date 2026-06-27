@@ -76,7 +76,7 @@ function gameReducer(state, action) {
 
     case 'TOGGLE_NOTE': {
       const sel = state.selected
-      if (!sel || state.mode !== 'pencil' || state.puzzle[sel.row][sel.col] !== 0 || state.board[sel.row][sel.col] !== 0) return state
+      if (!sel || state.puzzle[sel.row][sel.col] !== 0 || state.board[sel.row][sel.col] !== 0) return state
       const newNotes = state.notes.map(r => r.map(s => new Set(s)))
       const num = action.payload
       const prevHas = newNotes[sel.row][sel.col].has(num)
