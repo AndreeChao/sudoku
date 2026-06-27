@@ -1,7 +1,7 @@
 import { Cell } from './Cell.jsx'
 import './Board.css'
 
-export function Board({ board, puzzle, notes, noteConflicts, conflicts, selected, onSelectCell }) {
+export function Board({ board, puzzle, notes, noteHints, noteConflicts, conflicts, selected, onSelectCell }) {
   const selectedVal = selected ? board[selected.row][selected.col] : 0
 
   return (
@@ -15,6 +15,7 @@ export function Board({ board, puzzle, notes, noteConflicts, conflicts, selected
               value={val}
               isGiven={puzzle[r][c] !== 0}
               notes={notes[r][c]}
+              noteHints={noteHints[r][c]}
               noteConflicts={noteConflicts[r][c]}
               isSelected={selected?.row === r && selected?.col === c}
               isSameNumber={val !== 0 && val === selectedVal}

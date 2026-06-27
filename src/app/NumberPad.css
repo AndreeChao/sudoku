@@ -1,7 +1,7 @@
 .numpad {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 8px;
   width: 100%;
   max-width: 500px;
@@ -9,52 +9,88 @@
   box-sizing: border-box;
 }
 
-.num-btn,
-.fn-btn {
-  min-height: 60px;
-  font-size: 26px;
+.numpad-numbers {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  flex: 3;
+}
+
+.pencil-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  flex: 2;
+  background: #f0f0f0;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.num-btn {
+  min-height: 62px;
+  font-size: 28px;
   font-weight: bold;
   border: none;
   border-radius: 8px;
+  background: #f0f4ff;
+  color: #1a73e8;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
-}
-
-.num-btn {
-  background: #f0f4ff;
-  color: #1a73e8;
 }
 
 .num-btn:active { background: #c5cae9; }
 
-.fn-btn {
-  background: #f5f5f5;
-  color: #555;
-}
-
-.fn-btn:active { background: #e0e0e0; }
-
-.pencil-btn.active {
-  background: #1a73e8;
-  color: #fff;
-}
-
-.new-game-btn {
-  grid-column: span 4;
-  min-height: 52px;
-  font-size: 20px;
+.pencil-num-btn {
+  min-height: 38px;
+  font-size: 15px;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
-  background: #e8f0fe;
-  color: #1a73e8;
+  border-radius: 6px;
+  background: #e8e8e8;
+  color: #555;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
-  margin-top: 2px;
+}
+
+.pencil-num-btn:active { background: #bdbdbd; }
+
+.fn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.fn-btn {
+  min-height: 52px;
+  font-size: 22px;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #555;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.fn-btn:active { background: #e0e0e0; }
+
+.new-game-btn {
+  font-size: 20px;
+  font-weight: bold;
+  background: #e8f0fe;
+  color: #1a73e8;
 }
 
 .new-game-btn:active { background: #c5cae9; }

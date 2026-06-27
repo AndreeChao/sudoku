@@ -43,6 +43,38 @@ export function computeConflicts(board) {
   return conflicts
 }
 
+export function computeNoteHints(notes) {
+  const rowCounts = Array.from({ length: 9 }, () => ({}))
+  const colCounts = Array.from({ length: 9 }, () => ({}))
+  const boxCounts = Array.from({ length: 9 }, () => ({}))
+
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const b = Math.floor(r / 3) * 3 + Math.floor(c / 3)
+      for (const n of notes[r][c]) {
+        rowCounts[r][n] = (rowCounts[r][n] || 0) + 1
+        colCounts[c][n] = (colCounts[c][n] || 0) + 1
+        boxCounts[b][n] = (boxCounts[b][n] || 0) + 1
+      }
+    }
+  }
+
+  const result = Array.from({ length: 9 }, () =>
+    Array.from({ length: 9 }, () => new Set())
+  )
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const b = Math.floor(r / 3) * 3 + Math.floor(c / 3)
+      for (const n of notes[r][c]) {
+        if (rowCounts[r][n] === 1 && colCounts[c][n] === 1 && boxCounts[b][n] === 1) {
+          result[r][c].add(n)
+        }
+      }
+    }
+  }
+  return result
+}
+
 export function computeNoteConflicts(notes) {
   const result = Array.from({ length: 9 }, () =>
     Array.from({ length: 9 }, () => new Set())

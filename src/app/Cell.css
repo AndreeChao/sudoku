@@ -45,4 +45,5 @@
 }
 
 .note-num.visible { color: #555; }
-.note-num.note-conflict { color: #e53935; }
+.note-num.note-hint { color: #e53935; }
+.note-num.note-conflict { color: #111; }

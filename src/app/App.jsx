@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useGameState } from '../hooks/useGameState.js'
 import { useTimer } from '../hooks/useTimer.js'
 import { usePuzzleGenerator } from '../hooks/usePuzzleGenerator.js'
-import { computeConflicts, computeNoteConflicts } from '../lib/conflicts.js'
+import { computeConflicts, computeNoteConflicts, computeNoteHints } from '../lib/conflicts.js'
 import { Board } from './Board.jsx'
 import { NumberPad } from './NumberPad.jsx'
 import { StatusBar } from './StatusBar.jsx'
@@ -50,18 +50,20 @@ export function App() {
 
   const conflicts = computeConflicts(state.board)
   const noteConflicts = computeNoteConflicts(state.notes)
+  const noteHints = computeNoteHints(state.notes)
 
   const handleSelectCell = (row, col) => {
     dispatch({ type: 'SELECT_CELL', payload: { row, col } })
   }
 
-  const handleNumber = (num) => {
+  const handleAnswerNumber = (num) => {
     if (!state.selected) return
-    if (state.mode === 'pencil') {
-      dispatch({ type: 'TOGGLE_NOTE', payload: num })
-    } else {
-      dispatch({ type: 'INPUT_NUMBER', payload: num })
-    }
+    dispatch({ type: 'INPUT_NUMBER', payload: num })
+  }
+
+  const handlePencilNumber = (num) => {
+    if (!state.selected) return
+    dispatch({ type: 'TOGGLE_NOTE', payload: num })
   }
 
   const handleDifficultyChange = (difficulty) => {
@@ -83,6 +85,7 @@ export function App() {
         board={state.board}
         puzzle={state.puzzle}
         notes={state.notes}
+        noteHints={noteHints}
         noteConflicts={noteConflicts}
         conflicts={conflicts}
         selected={state.selected}
@@ -90,11 +93,10 @@ export function App() {
       />
 
       <NumberPad
-        mode={state.mode}
-        onNumber={handleNumber}
+        onAnswerNumber={handleAnswerNumber}
+        onPencilNumber={handlePencilNumber}
         onUndo={() => dispatch({ type: 'UNDO' })}
         onClear={() => dispatch({ type: 'CLEAR_CELL' })}
-        onToggleMode={() => dispatch({ type: 'TOGGLE_MODE' })}
         onNewGame={handleNewGame}
       />
 
