@@ -1,0 +1,36 @@
+.win-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.win-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.win-emoji { font-size: 60px; margin-bottom: 8px; }
+.win-title { font-size: 36px; font-weight: bold; margin: 0 0 16px; color: #111; }
+.win-info { font-size: 22px; color: #555; margin: 8px 0; }
+
+.win-btn {
+  margin-top: 24px;
+  padding: 16px 40px;
+  font-size: 22px;
+  font-weight: bold;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.win-btn:active { background: #1557b0; }
