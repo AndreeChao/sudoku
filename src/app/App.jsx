@@ -9,11 +9,39 @@ import { StatusBar } from './StatusBar.jsx'
 import { WinScreen } from './WinScreen.jsx'
 import './App.css'
 
+function fmtSecs(s) {
+  return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
+}
+function bestKey(difficulty) { return `sudoku-best-${difficulty}` }
+
 export function App() {
   const { state, dispatch } = useGameState()
   const [genKey, setGenKey] = useState(0)
   const { result, loading } = usePuzzleGenerator(state.difficulty, genKey)
   const timer = useTimer(state.startTime, state.status)
+
+  const [bestTime, setBestTime] = useState(() => {
+    const s = localStorage.getItem(bestKey('hard'))
+    return s ? fmtSecs(Number(s)) : '--:--'
+  })
+
+  // 難度切換時讀取對應最快紀錄
+  useEffect(() => {
+    const s = localStorage.getItem(bestKey(state.difficulty))
+    setBestTime(s ? fmtSecs(Number(s)) : '--:--')
+  }, [state.difficulty])
+
+  // 完成時更新最快紀錄
+  useEffect(() => {
+    if (state.status !== 'won') return
+    const elapsed = Math.floor((Date.now() - state.startTime) / 1000)
+    const key = bestKey(state.difficulty)
+    const stored = localStorage.getItem(key)
+    if (!stored || elapsed < Number(stored)) {
+      localStorage.setItem(key, String(elapsed))
+      setBestTime(fmtSecs(elapsed))
+    }
+  }, [state.status, state.difficulty, state.startTime])
 
   // 謎題生成完成後載入
   useEffect(() => {
@@ -72,6 +100,7 @@ export function App() {
       <StatusBar
         difficulty={state.difficulty}
         timer={timer}
+        bestTime={bestTime}
         onDifficultyChange={handleDifficultyChange}
       />
 

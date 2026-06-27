@@ -43,12 +43,35 @@ function gameReducer(state, action) {
     case 'INPUT_NUMBER': {
       const sel = state.selected
       if (!sel || state.puzzle[sel.row][sel.col] !== 0) return state
+      const num = action.payload
       const newBoard = state.board.map(r => [...r])
-      newBoard[sel.row][sel.col] = action.payload
-      const entry = { type: 'board', row: sel.row, col: sel.col, prev: state.board[sel.row][sel.col] }
+      newBoard[sel.row][sel.col] = num
+
+      // 自動清掉同行、同列、同宮格的相同候選數字
+      const newNotes = state.notes.map(r => r.map(s => new Set(s)))
+      const clearedNotesCells = []
+      const br = Math.floor(sel.row / 3) * 3
+      const bc = Math.floor(sel.col / 3) * 3
+      const peers = new Set()
+      for (let i = 0; i < 9; i++) {
+        peers.add(`${sel.row},${i}`)
+        peers.add(`${i},${sel.col}`)
+      }
+      for (let r = br; r < br + 3; r++)
+        for (let c = bc; c < bc + 3; c++)
+          peers.add(`${r},${c}`)
+      for (const key of peers) {
+        const [r, c] = key.split(',').map(Number)
+        if (newNotes[r][c].has(num)) {
+          newNotes[r][c].delete(num)
+          clearedNotesCells.push({ row: r, col: c })
+        }
+      }
+
+      const entry = { type: 'board', row: sel.row, col: sel.col, prev: state.board[sel.row][sel.col], num, clearedNotesCells }
       const newHistory = clampHistory([...state.history, entry])
       const newStatus = isComplete(newBoard, state.solution) ? 'won' : 'playing'
-      return { ...state, board: newBoard, history: newHistory, status: newStatus }
+      return { ...state, board: newBoard, notes: newNotes, history: newHistory, status: newStatus }
     }
 
     case 'TOGGLE_NOTE': {
@@ -86,7 +109,12 @@ function gameReducer(state, action) {
       if (last.type === 'board') {
         const newBoard = state.board.map(r => [...r])
         newBoard[last.row][last.col] = last.prev
-        return { ...state, board: newBoard, history: newHistory, status: 'playing' }
+        const newNotes = state.notes.map(r => r.map(s => new Set(s)))
+        // 還原被自動清掉的候選數字
+        if (last.clearedNotesCells) {
+          for (const { row, col } of last.clearedNotesCells) newNotes[row][col].add(last.num)
+        }
+        return { ...state, board: newBoard, notes: newNotes, history: newHistory, status: 'playing' }
       }
       if (last.type === 'note') {
         const newNotes = state.notes.map(r => r.map(s => new Set(s)))
