@@ -15,6 +15,9 @@ export function usePuzzleGenerator(difficulty, key) {
       setResult(e.data)
       setLoading(false)
     }
+    worker.onerror = () => {
+      setLoading(false)
+    }
     worker.postMessage({ difficulty })
     return () => worker.terminate()
   }, [difficulty, key])
