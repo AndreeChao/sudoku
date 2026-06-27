@@ -1,0 +1,9 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  border: 2px solid #333;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  touch-action: manipulation;
+}

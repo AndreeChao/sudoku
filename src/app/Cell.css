@@ -1,0 +1,46 @@
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  aspect-ratio: 1;
+  border: 1px solid #bbb;
+  font-size: 28px;
+  font-weight: bold;
+  color: #111;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.cell.given { color: #111; }
+.cell:not(.given) { color: #1a73e8; }
+.cell.selected { background: #bbdefb; }
+.cell.same-number { background: #e3f2fd; }
+.cell.conflict { background: #ffcdd2; }
+.cell.box-top { border-top: 2px solid #333; }
+.cell.box-left { border-left: 2px solid #333; }
+
+.cell.notes-cell {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 2px;
+  font-size: 28px;
+  font-weight: normal;
+}
+
+.note-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+  line-height: 1;
+}
+
+.note-num.visible { color: #555; }
+.note-num.note-conflict { color: #e53935; }
