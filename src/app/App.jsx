@@ -95,6 +95,7 @@ export function App() {
         onUndo={() => dispatch({ type: 'UNDO' })}
         onClear={() => dispatch({ type: 'CLEAR_CELL' })}
         onToggleMode={() => dispatch({ type: 'TOGGLE_MODE' })}
+        onNewGame={handleNewGame}
       />
 
       <StatusBar

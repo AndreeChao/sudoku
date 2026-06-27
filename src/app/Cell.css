@@ -4,7 +4,8 @@
   justify-content: center;
   min-height: 48px;
   aspect-ratio: 1;
-  border: 1px solid #bbb;
+  border-top: 1px solid #bbb;
+  border-left: 1px solid #bbb;
   font-size: 28px;
   font-weight: bold;
   color: #111;
@@ -12,6 +13,7 @@
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   box-sizing: border-box;
 }
 

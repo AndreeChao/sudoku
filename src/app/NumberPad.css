@@ -18,6 +18,7 @@
   border-radius: 8px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   user-select: none;
 }
 
@@ -39,3 +40,21 @@
   background: #1a73e8;
   color: #fff;
 }
+
+.new-game-btn {
+  grid-column: span 4;
+  min-height: 52px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: #e8f0fe;
+  color: #1a73e8;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  margin-top: 2px;
+}
+
+.new-game-btn:active { background: #c5cae9; }

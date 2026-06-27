@@ -1,6 +1,6 @@
 import './NumberPad.css'
 
-export function NumberPad({ mode, onNumber, onUndo, onClear, onToggleMode }) {
+export function NumberPad({ mode, onNumber, onUndo, onClear, onToggleMode, onNewGame }) {
   return (
     <div className="numpad">
       <button
@@ -23,6 +23,8 @@ export function NumberPad({ mode, onNumber, onUndo, onClear, onToggleMode }) {
       {[7, 8, 9].map(n => (
         <button key={n} className="num-btn" onClick={() => onNumber(n)}>{n}</button>
       ))}
+
+      <button className="new-game-btn" onClick={onNewGame} aria-label="新局">新局</button>
     </div>
   )
 }
