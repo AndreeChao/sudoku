@@ -1,0 +1,41 @@
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 8px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.num-btn,
+.fn-btn {
+  min-height: 60px;
+  font-size: 26px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.num-btn {
+  background: #f0f4ff;
+  color: #1a73e8;
+}
+
+.num-btn:active { background: #c5cae9; }
+
+.fn-btn {
+  background: #f5f5f5;
+  color: #555;
+}
+
+.fn-btn:active { background: #e0e0e0; }
+
+.pencil-btn.active {
+  background: #1a73e8;
+  color: #fff;
+}
