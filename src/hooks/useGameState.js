@@ -10,8 +10,8 @@ function createInitialState(difficulty = 'hard') {
     mode: 'normal',
     history: [],
     difficulty,
-    status: 'playing',
-    startTime: Date.now(),
+    status: 'idle',
+    startTime: null,
   }
 }
 
@@ -29,6 +29,9 @@ function clampHistory(history) {
 function gameReducer(state, action) {
   switch (action.type) {
     case 'SELECT_CELL':
+      if (state.status === 'idle') {
+        return { ...state, selected: action.payload, status: 'playing', startTime: Date.now() }
+      }
       return { ...state, selected: action.payload }
 
     case 'SET_PUZZLE':
@@ -37,7 +40,6 @@ function gameReducer(state, action) {
         puzzle: action.payload.puzzle,
         solution: action.payload.solution,
         board: action.payload.puzzle.map(r => [...r]),
-        startTime: Date.now(),
       }
 
     case 'INPUT_NUMBER': {

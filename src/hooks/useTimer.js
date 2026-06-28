@@ -4,7 +4,11 @@ export function useTimer(startTime, status) {
   const [elapsed, setElapsed] = useState(0)
 
   useEffect(() => {
-    if (status === 'won') return
+    if (!startTime) {
+      setElapsed(0)
+      return
+    }
+    if (status !== 'playing') return
     const id = setInterval(() => {
       setElapsed(Math.floor((Date.now() - startTime) / 1000))
     }, 1000)
